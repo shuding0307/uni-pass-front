@@ -7,7 +7,7 @@ import InfoBlock from "./components/InfoBlock";
 import Sidebar from "./components/Sidebar";
 import StatCard from "./components/StatCard";
 import TopBar from "./components/TopBar";
-// import UploadTranscript from "./components/UploadTranscript";
+import UploadTranscript from "./components/UploadTranscript";
 import { creditStats, studentInfo } from "./data/dashboard-data";
 
 export default function Home() {
@@ -40,7 +40,7 @@ export default function Home() {
           </section>
 
           <div className="space-y-7">
-            {/* <UploadTranscript /> */}
+            <UploadTranscript />
             {/* <AlertBanner /> */}
 
             <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
