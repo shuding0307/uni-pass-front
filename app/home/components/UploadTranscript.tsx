@@ -195,7 +195,7 @@ export default function UploadTranscript({ setLoading, setTranscript }: Props) {
               업로드 중
             </>
           ) : (
-            "백엔드로 전송"
+            "성적표 업로드"
           )}
         </button>
       </form>
