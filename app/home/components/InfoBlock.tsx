@@ -1,23 +1,28 @@
 type InfoBlockProps = {
-  label: string;
-  value: string;
-  bordered?: boolean;
+  id?: string;
+  department?: string;
 };
 
-export default function InfoBlock({ label, value, bordered = false }: InfoBlockProps) {
+export default function InfoBlock({
+  id = "",
+  department = "",
+}: InfoBlockProps) {
   return (
-    <div
-      className={[
-        "text-right",
-        bordered ? "border-l border-[#DDE1EA] pl-8" : ""
-      ].join(" ")}
-    >
-      <p className="mb-1 text-[10px] font-black uppercase tracking-[0.2em] text-[#737780]">
-        {label}
-      </p>
-      <p className="text-xl font-black tracking-tight text-[#001E40] md:text-2xl">
-        {value}
-      </p>
+    <div className="flex">
+      <div className="text-left mr-5 ">
+        <p className="mb-1 text-[15px] uppercase tracking-[0.2em] text-[#737780]">
+          학번
+        </p>
+        <p className="text-l tracking-tight text-[#343434] md:text-2xl">{id}</p>
+      </div>
+      <div className="text-left border-l border-[#DDE1EA] pl-8">
+        <p className="mb-1 text-[15px] uppercase tracking-[0.2em] text-[#737780]">
+          학과
+        </p>
+        <p className="text-[10px] tracking-tight text-[#343434] md:text-2xl">
+          {department ?? "컴퓨터공학과"}
+        </p>
+      </div>
     </div>
   );
 }

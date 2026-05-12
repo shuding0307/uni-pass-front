@@ -1,6 +1,11 @@
+import { ITranscript } from "@/app/types/transcript";
 import { Bell, Menu, Search, User } from "lucide-react";
 
-export default function TopBar() {
+interface Props {
+  transcript?: ITranscript | null;
+}
+
+export default function TopBar({ transcript }: Props) {
   return (
     <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between border-b border-[#E4E7EF] bg-white/90 px-5 backdrop-blur md:px-8 lg:px-10">
       <div className="flex items-center gap-4">
@@ -30,25 +35,21 @@ export default function TopBar() {
         <span className="hidden text-xs font-black uppercase tracking-[0.18em] text-[#737780] sm:inline">
           2026학년도 1학기
         </span>
-        <button
-          aria-label="알림"
-          className="relative grid size-10 place-items-center rounded-lg text-[#43474F] transition-colors hover:bg-[#F3F4F8]"
-          type="button"
-        >
-          <Bell size={20} />
-          <span className="absolute right-2.5 top-2.5 size-2 rounded-full bg-[#EF4444]" />
-        </button>
-        <div className="flex items-center gap-3 border-l border-[#E4E7EF] pl-4">
-          <div className="hidden text-right sm:block">
-            <p className="text-sm font-black text-[#001E40]">홍길동</p>
-            <p className="text-[11px] font-bold text-[#737780]">
-              컴퓨터공학 4학년
-            </p>
+        {transcript && (
+          <div className="flex items-center gap-3 border-l border-[#E4E7EF] pl-4">
+            <div className="hidden text-right sm:block">
+              <p className="text-sm font-black text-[#001E40]">
+                {transcript.student_name}
+              </p>
+              <p className="text-[11px] font-bold text-[#737780]">
+                컴퓨터공학 4학년
+              </p>
+            </div>
+            <div className="grid size-10 place-items-center rounded-full bg-[#EEF2FF] text-[#2563EB]">
+              <User size={21} />
+            </div>
           </div>
-          <div className="grid size-10 place-items-center rounded-full bg-[#EEF2FF] text-[#2563EB]">
-            <User size={21} />
-          </div>
-        </div>
+        )}
       </div>
     </header>
   );
