@@ -8,9 +8,6 @@ import {
 
 export const navItems = [
   { label: "대시보드", icon: LayoutDashboard, active: true },
-  // { label: "로드맵", icon: Map },
-  // { label: "수강 일정", icon: CalendarDays },
-  // { label: "설정", icon: Settings }
 ];
 
 export const studentInfo = [
@@ -21,27 +18,57 @@ export const studentInfo = [
 export const creditStats = [
   {
     label: "총 이수 학점",
-    current: 124,
-    total: 140,
+    current: 0,
+    total: 0,
     barClassName: "bg-[#2563EB]",
   },
   {
-    label: "전공 학점",
-    current: 54,
-    total: 60,
+    label: "교양 기초",
+    current: 0,
+    total: 0,
+    barClassName: "bg-[#EF4444]",
+  },
+  {
+    label: "교양 균형",
+    current: 0,
+    total: 0,
+    barClassName: "bg-[#EF4444]",
+  },
+  {
+    label: "교양 특화",
+    current: 0,
+    total: 0,
+    barClassName: "bg-[#EF4444]",
+  },
+  {
+    label: "교양 대교",
+    current: 0,
+    total: 0,
+    barClassName: "bg-[#EF4444]",
+  },
+  {
+    label: "전공 전필",
+    current: 0,
+    total: 0,
     barClassName: "bg-[#16A34A]",
   },
-  // {
-  //   label: "MSC 학점",
-  //   current: 28,
-  //   total: 30,
-  //   barClassName: "bg-[#0F766E]",
-  // },
   {
-    label: "교양 학점",
-    current: 18,
+    label: "전공 전선",
+    current: 0,
+    total: 0,
+    barClassName: "bg-[#16A34A]",
+  },
+  {
+    label: "전공 선택 심화",
+    current: 0,
+    total: 0,
+    barClassName: "bg-[#0F766E]",
+  },
+  {
+    label: "자유 선택 자선",
+    current: 0,
     total: 20,
-    barClassName: "bg-[#EF4444]",
+    barClassName: "bg-[#0F766E]",
   },
 ];
 

@@ -1,11 +1,24 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { FileText, Loader2, Upload, X } from "lucide-react";
+import { ITranscript } from "@/app/types/transcript";
 
 type UploadState = "idle" | "uploading" | "success" | "error";
 
-export default function UploadTranscript() {
+interface Props {
+  setLoading: (loading: boolean) => void;
+  setTranscript: (Transcript: ITranscript) => void;
+}
+
+export default function UploadTranscript({ setLoading, setTranscript }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [state, setState] = useState<UploadState>("idle");
@@ -18,6 +31,13 @@ export default function UploadTranscript() {
 
     return `${(file.size / 1024 / 1024).toFixed(2)} MB`;
   }, [file]);
+
+  useEffect(() => {
+    if (state === "success") {
+      console.log("성적표 업로드 성공, 학생 정보 가져오기 시작");
+      setLoading(false);
+    }
+  }, [state]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] ?? null;
@@ -67,26 +87,28 @@ export default function UploadTranscript() {
     setMessage("");
 
     try {
+      setLoading(true);
       const response = await fetch("/api/transcripts/upload", {
         method: "POST",
-        body: formData
+        body: formData,
       });
       const data = await response.json().catch(() => null);
-
       if (!response.ok) {
         throw new Error(data?.message ?? "성적표 업로드에 실패했습니다.");
       }
-
+      console.log("백엔드 응답 데이터:", data);
       setState("success");
-      setMessage(data?.message ?? "성적표가 백엔드로 전송되었습니다.");
+      setMessage("성적표가 백엔드로 전송되었습니다.");
+      setTranscript(data);
     } catch (error) {
       setState("error");
       setMessage(
         error instanceof Error
           ? error.message
-          : "성적표 업로드 중 오류가 발생했습니다."
+          : "성적표 업로드 중 오류가 발생했습니다.",
       );
     }
+    setLoading(false);
   };
 
   return (
@@ -155,7 +177,7 @@ export default function UploadTranscript() {
               "rounded-lg px-4 py-3 text-sm font-bold",
               state === "success"
                 ? "bg-[#F0FDF4] text-[#15803D]"
-                : "bg-[#FEF2F2] text-[#B91C1C]"
+                : "bg-[#FEF2F2] text-[#B91C1C]",
             ].join(" ")}
           >
             {message}
@@ -163,7 +185,7 @@ export default function UploadTranscript() {
         ) : null}
 
         <button
-          className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#2563EB] text-sm font-black text-white transition-colors hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:bg-[#B8BEC9]"
+          className="flex h-11 w-full items-center justify-center gap-2 cursor-pointer rounded-lg bg-[#2563EB] text-sm font-black text-white transition-colors hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:bg-[#B8BEC9]"
           disabled={!file || state === "uploading"}
           type="submit"
         >
