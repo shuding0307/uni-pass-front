@@ -2,6 +2,7 @@
 
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import AiAcademicAssistant from "./components/AiAcademicAssistant";
 import AiInsightPanel from "./components/AiInsightPanel";
 import InfoBlock from "./components/InfoBlock";
 import Sidebar from "./components/Sidebar";
@@ -253,6 +254,8 @@ export default function Home() {
                 ))}
               </section>
             )}
+
+            <AiAcademicAssistant transcript={transcript} />
 
             {takenCourseGroups.length > 0 ? (
               <section className="rounded-lg border border-[#E3E8F2] bg-white p-6 shadow-[0_14px_36px_rgba(16,32,51,0.06)]">
