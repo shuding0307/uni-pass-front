@@ -10,10 +10,10 @@ export default function NavItem({ icon: Icon, label, active = false }: NavItemPr
   return (
     <a
       className={[
-        "flex h-11 items-center gap-3 rounded-lg px-4 text-sm font-bold transition-colors",
+        "flex h-11 items-center gap-3 rounded-lg px-4 text-sm font-bold transition",
         active
-          ? "bg-[#EEF2FF] text-[#1D4ED8]"
-          : "text-[#43474F] hover:bg-[#F3F4F8] hover:text-[#001E40]"
+          ? "bg-[#EFF6FF] text-[#1D4ED8] shadow-[inset_3px_0_0_#2563EB]"
+          : "text-[#435266] hover:bg-[#F7F9FC] hover:text-[#102033]"
       ].join(" ")}
       href="#"
     >
