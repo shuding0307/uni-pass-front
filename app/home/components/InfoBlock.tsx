@@ -8,18 +8,20 @@ export default function InfoBlock({
   department = "",
 }: InfoBlockProps) {
   return (
-    <div className="flex">
-      <div className="text-left mr-5 ">
-        <p className="mb-1 text-[15px] uppercase tracking-[0.2em] text-[#737780]">
+    <div className="grid gap-3 sm:grid-cols-2">
+      <div className="rounded-lg border border-[#E3E8F2] bg-white/75 px-4 py-3 shadow-[0_10px_30px_rgba(16,32,51,0.06)]">
+        <p className="mb-1 text-[10px] font-black uppercase tracking-[0.18em] text-[#6B7280]">
           학번
         </p>
-        <p className="text-l tracking-tight text-[#343434] md:text-2xl">{id}</p>
+        <p className="text-base font-black tracking-tight text-[#102033]">
+          {id || "-"}
+        </p>
       </div>
-      <div className="text-left border-l border-[#DDE1EA] pl-8">
-        <p className="mb-1 text-[15px] uppercase tracking-[0.2em] text-[#737780]">
+      <div className="rounded-lg border border-[#E3E8F2] bg-white/75 px-4 py-3 shadow-[0_10px_30px_rgba(16,32,51,0.06)]">
+        <p className="mb-1 text-[10px] font-black uppercase tracking-[0.18em] text-[#6B7280]">
           학과
         </p>
-        <p className="text-[10px] tracking-tight text-[#343434] md:text-2xl">
+        <p className="text-base font-black tracking-tight text-[#102033]">
           {department ?? "컴퓨터공학과"}
         </p>
       </div>
