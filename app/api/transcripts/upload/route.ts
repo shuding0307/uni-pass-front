@@ -9,6 +9,7 @@ const TRANSCRIPT_UPLOAD_PATH = "/api/transcript/parse";
 export async function POST(request: Request) {
   const formData = await request.formData();
   const file = formData.get("file");
+  const timetableFile = formData.get("timetable_file");
 
   if (!(file instanceof File)) {
     return NextResponse.json(
@@ -24,8 +25,26 @@ export async function POST(request: Request) {
     );
   }
 
+  if (timetableFile != null && !(timetableFile instanceof File)) {
+    return NextResponse.json(
+      { message: "시간표 PDF 파일 형식이 올바르지 않습니다." },
+      { status: 400 },
+    );
+  }
+
+  if (timetableFile instanceof File && timetableFile.type !== "application/pdf") {
+    return NextResponse.json(
+      { message: "시간표는 PDF 파일만 업로드할 수 있습니다." },
+      { status: 400 },
+    );
+  }
+
   const backendFormData = new FormData();
   backendFormData.append("file", file, file.name);
+
+  if (timetableFile instanceof File) {
+    backendFormData.append("timetable_file", timetableFile, timetableFile.name);
+  }
 
   try {
     const response = await fetch(getBackendUrl(TRANSCRIPT_UPLOAD_PATH), {
