@@ -72,30 +72,6 @@ export const creditStats = [
   },
 ];
 
-export const abeekItems = [
-  {
-    title: "설계 학점 이수",
-    description: "공학 전공 핵심 필수 요건",
-    status: "진행 중",
-    score: "9 / 12",
-    done: false,
-  },
-  {
-    title: "선수 과목 확인",
-    description: "기초 과학 및 수학 선수 체계 검증",
-    status: "완료",
-    score: "100%",
-    done: true,
-  },
-  {
-    title: "공학 윤리 세미나",
-    description: "지정 필수 세미나 이수",
-    status: "완료",
-    score: "2 / 2",
-    done: true,
-  },
-];
-
 export const aiInsights = [
   {
     label: "졸업 가능성",

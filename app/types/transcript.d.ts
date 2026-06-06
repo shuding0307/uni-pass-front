@@ -24,6 +24,43 @@ export interface TakenCourse {
   sub_area: string | null;
 }
 
+export interface PlannedCourse {
+  course_code: string;
+  name: string;
+  credits: number;
+  area_type: string;
+  building_name: string | null;
+}
+
+export interface RecommendedCourse extends PlannedCourse {
+  section: string | null;
+  professor: string | null;
+  schedule: string | null;
+}
+
+export interface RecommendedTimetable {
+  courses: RecommendedCourse[];
+  total_credits: number;
+  covered_deficiencies: string[];
+  rationale: string;
+}
+
+export interface TimetableRecommendResponse {
+  deficiency_map: Record<string, unknown>;
+  timetables: RecommendedTimetable[];
+  llm_used: boolean;
+}
+
+export interface RegulationResponse {
+  id: string;
+  title: string;
+  content: string;
+  major: string | null;
+  source_tag: string | null;
+  effective_date: string;
+  is_active: boolean;
+}
+
 export interface ITranscript {
   student_name: string | null;
   student_id: string | null;
@@ -33,6 +70,7 @@ export interface ITranscript {
   earned_credit?: CreditSummary;
   basic_credits: CreditSummary;
   taken_courses: TakenCourse[];
+  planned_courses?: PlannedCourse[];
 }
 
 export interface GraduationRequirement {
@@ -48,6 +86,7 @@ export interface GraduationRequirement {
     최소전공_필수: number;
     최소전공_선택: number;
   };
+  major_course_codes?: string[];
   tracks: Record<
     string,
     {
@@ -56,8 +95,4 @@ export interface GraduationRequirement {
       자유선택: number;
     }
   >;
-}
-
-export interface GraduationEvaluation {
-  [key: string]: unknown;
 }
