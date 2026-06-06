@@ -1,7 +1,17 @@
 import { ChevronRight, Sparkles } from "lucide-react";
 import { aiInsights } from "../data/dashboard-data";
 
-export default function AiInsightPanel() {
+interface Insight {
+  label: string;
+  value: string;
+  description: string;
+}
+
+interface Props {
+  insights?: Insight[];
+}
+
+export default function AiInsightPanel({ insights = aiInsights }: Props) {
   return (
     <aside className="rounded-lg bg-[#101827] p-6 text-white shadow-[0_16px_40px_rgba(16,24,39,0.18)] md:p-7">
       <div className="mb-7 flex items-center gap-3">
@@ -12,7 +22,7 @@ export default function AiInsightPanel() {
       </div>
 
       <div className="space-y-4">
-        {aiInsights.map((insight) => (
+        {insights.map((insight) => (
           <article
             className="rounded-lg border border-white/10 bg-white/[0.06] p-5"
             key={insight.label}

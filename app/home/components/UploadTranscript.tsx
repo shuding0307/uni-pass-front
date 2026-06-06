@@ -3,7 +3,6 @@
 import {
   ChangeEvent,
   FormEvent,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -15,10 +14,13 @@ type UploadState = "idle" | "uploading" | "success" | "error";
 
 interface Props {
   setLoading: (loading: boolean) => void;
-  setTranscript: (Transcript: ITranscript) => void;
+  onTranscriptParsed: (transcript: ITranscript) => Promise<void> | void;
 }
 
-export default function UploadTranscript({ setLoading, setTranscript }: Props) {
+export default function UploadTranscript({
+  setLoading,
+  onTranscriptParsed,
+}: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [state, setState] = useState<UploadState>("idle");
@@ -31,13 +33,6 @@ export default function UploadTranscript({ setLoading, setTranscript }: Props) {
 
     return `${(file.size / 1024 / 1024).toFixed(2)} MB`;
   }, [file]);
-
-  useEffect(() => {
-    if (state === "success") {
-      console.log("성적표 업로드 성공, 학생 정보 가져오기 시작");
-      setLoading(false);
-    }
-  }, [state]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] ?? null;
@@ -96,19 +91,20 @@ export default function UploadTranscript({ setLoading, setTranscript }: Props) {
       if (!response.ok) {
         throw new Error(data?.message ?? "성적표 업로드에 실패했습니다.");
       }
-      console.log("백엔드 응답 데이터:", data);
+      await onTranscriptParsed(data);
       setState("success");
-      setMessage("성적표가 백엔드로 전송되었습니다.");
-      setTranscript(data);
+      setMessage("성적표 분석과 졸업 요건 평가가 완료되었습니다.");
     } catch (error) {
-      setState("error");
-      setMessage(
+      const errorMessage =
         error instanceof Error
           ? error.message
-          : "성적표 업로드 중 오류가 발생했습니다.",
-      );
+          : "성적표 업로드 중 오류가 발생했습니다.";
+
+      setState("error");
+      setMessage(errorMessage);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

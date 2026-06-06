@@ -1,6 +1,10 @@
 import { AlertCircle } from "lucide-react";
 
-export default function AlertBanner() {
+interface Props {
+  message: string;
+}
+
+export default function AlertBanner({ message }: Props) {
   return (
     <section className="flex flex-col gap-5 rounded-lg border border-[#FECACA] bg-[#FEF2F2] p-5 shadow-[0_1px_3px_rgba(239,68,68,0.08)] md:flex-row md:items-center md:justify-between">
       <div className="flex gap-4">
@@ -12,8 +16,7 @@ export default function AlertBanner() {
             졸업 요건 알림
           </h2>
           <p className="max-w-3xl text-sm font-semibold leading-6 text-[#B91C1C]">
-            교양 3영역에서 <strong className="font-black underline">2학점</strong>이
-            부족합니다. 이번 학기에 이수하지 않으면 졸업이 지연될 수 있습니다.
+            {message}
           </p>
         </div>
       </div>

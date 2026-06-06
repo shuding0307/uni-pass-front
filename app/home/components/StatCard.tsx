@@ -10,7 +10,8 @@ export default function StatCard({
   current,
   total,
 }: StatCardProps) {
-  const percent = Math.min(Math.round((current / total) * 100), 100);
+  const percent =
+    total > 0 ? Math.min(Math.round((current / total) * 100), 100) : 0;
   const isCompleted = current >= total;
   
   // '총 이수 학점'은 파란색, 그 외에는 100% 미만일 때 빨간색, 100% 이상일 때 연두색
